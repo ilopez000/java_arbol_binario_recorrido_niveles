@@ -1,5 +1,5 @@
-class ArbolBinario {
-    Nodo raiz;
+public class ArbolBinario {
+     Nodo raiz;
 
     // Método para recorrer el árbol por niveles
     void recorridoPorNiveles() {
@@ -7,23 +7,48 @@ class ArbolBinario {
             return;
         }
 
-        Queue<Nodo> cola = new LinkedList<>();
-        cola.add(raiz);
+        Stack<Nodo> pila = new Stack<>();
+        pila.push(raiz);
 
-        while (!cola.isEmpty()) {
-            Nodo tempNodo = cola.poll();
-            System.out.print(tempNodo.valor + " ");
+        while (!pila.isEmpty()) {
+            Nodo tempNodo = pila.pop();
+            
 
             if (tempNodo.izquierdo != null) {
-                cola.add(tempNodo.izquierdo);
+                pila.push(tempNodo.izquierdo);
             }
 
             if (tempNodo.derecho != null) {
-ara                cola.add(tempNodo.derecho);
+               pila.push(tempNodo.derecho);
             }
+            
+            System.out.print(tempNodo.valor + " ");
         }
     }
 
+    // Método para recorrer el árbol en profundidad usando una pila
+    void recorridoEnProfundidad() {
+        if (raiz == null) {
+            return;
+        }
+
+        Stack<Nodo> pila = new Stack<>();
+        pila.push(raiz);
+
+        while (!pila.isEmpty()) {
+            Nodo nodoActual = pila.pop();
+            System.out.print(nodoActual.valor + " ");
+
+            // Primero el hijo derecho y luego el izquierdo para que el izquierdo se procese primero
+            if (nodoActual.derecho != null) {
+                pila.push(nodoActual.derecho);
+            }
+            if (nodoActual.izquierdo != null) {
+                pila.push(nodoActual.izquierdo);
+            }
+        }
+    }
+        
     // Método para agregar nodos de manera iterativa
     void agregar(int valor) {
         Nodo nuevoNodo = new Nodo(valor);
@@ -54,5 +79,7 @@ ara                cola.add(tempNodo.derecho);
                 break;
             }
         }
-    }
+    }  
+
+   
 }
